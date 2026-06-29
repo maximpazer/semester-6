@@ -1,0 +1,6 @@
+{
+  "experiment_type": "new_base_oof",
+  "hypothesis_short": "ExtraTrees als 7. OOF-Spalte",
+  "timeout_s": 120,
+  "id": "h_extratrees_base"
+}

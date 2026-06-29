@@ -1,0 +1,6 @@
+{
+  "experiment_type": "new_base_oof",
+  "hypothesis_short": "HistGradientBoosting als 7. OOF-Spalte",
+  "timeout_s": 120,
+  "id": "h_hgb_base"
+}

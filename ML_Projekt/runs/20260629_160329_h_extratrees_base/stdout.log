@@ -1,0 +1,6 @@
+
+--- STDERR ---
+Traceback (most recent call last):
+  File "/Users/wi-labor/Documents/semester-6/ML_Projekt/runs/20260629_160329_h_extratrees_base/experiment.py", line 20, in <module>
+    raise FileNotFoundError("Training data not found")
+FileNotFoundError: Training data not found

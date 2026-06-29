@@ -1,0 +1,3 @@
+# Projektanweisungen
+
+@AGENT.md

@@ -1,0 +1,22 @@
+{
+  "attempt": 1,
+  "timestamp": "2026-06-29T14:03:59.049157",
+  "done_reason": "stop",
+  "eval_count": 641,
+  "response": {
+    "model": "qwen3:32b",
+    "created_at": "2026-06-29T14:03:59.048891Z",
+    "message": {
+      "role": "assistant",
+      "content": "{\n  \"hypothesis\": \"ID: h_extratrees_base\\nType: new_base_oof\\nHypothesis: ExtraTrees als 7. OOF-Spalte\",\n  \"expected_mechanism\": \"Ein ExtraTrees-Klassifikator wird trainiert, um eine zusätzliche OOF-Spalte zu generieren. Der Algorithmus nutzt zufällige Entscheidungsbäume, um robuste und generalisierbare Wahrscheinlichkeitsvorhersagen zu liefern. Die Kombination mit anderen OOF-Spalten könnte die Modellleistung im Ensemble verbessern.\",\n  \"risks\": \"1. Overfitting auf den Trainingsdatensatz, wenn die Hyperparameter nicht gut abgestimmt sind.\\n2. Geringere Leistung im Vergleich zu anderen Modellen wie XGBoost oder TabPFN, was die OOF-Spalte weniger nützlich machen könnte.\\n3. Langsame Trainingsgeschwindigkeit bei großen Datensätzen.\",\n  \"script\": \"import numpy as np\\nimport pandas as pd\\nfrom sklearn.ensemble import ExtraTreesClassifier\\nfrom sklearn.model_selection import StratifiedKFold\\nfrom pathlib import Path\\nimport warnings\\n\\n# Set random seed for reproducibility\\nnp.random.seed(42)\\n\\n# Define root path\\nROOT = Path(__file__).resolve().parent.parent\\n\\n# Find training data path\\nfor _p in [ROOT / \\\"data\\\" / \\\"data\\\" / \\\"toxic_data_01111.csv\\\", ROOT / \\\"data\\\" / \\\"toxic_data_01111.csv\\\"]:\\n    if _p.exists():\\n        data_path = _p\\n        break\\nelse:\\n    raise FileNotFoundError(\\\"Training data not found\\\")\\n\\n# Load training data\\ntrain_df = pd.read_csv(data_path)\\n\\n# Prepare features and labels\\nX = train_df[[f'f{i:02d}' for i in range(16)]].values\\ny = train_df['label'].values\\n\\n# Initialize OOF array\\noof = np.zeros(len(y))\\n\\n# Initialize StratifiedKFold\\nskf = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)\\n\\n# Suppress warnings for cleaner output\\nwarnings.filterwarnings('ignore')\\n\\n# Train and predict with ExtraTreesClassifier\\nfor fold, (train_idx, val_idx) in enumerate(skf.split(X, y)):\\n    X_train, y_train = X[train_idx], y[train_idx]\\n    X_val, y_val = X[val_idx], y[val_idx]\\n\\n    model = ExtraTreesClassifier(n_estimators=100, random_state=42)\\n    model.fit(X_train, y_train)\\n\\n    oof[val_idx] = model.predict_proba(X_val)[:, 1]\\n\\n# Save OOF predictions\\nnp.save(Path(\\\"new_oof.npy\\\"), oof.astype(np.float64))\"\n}"
+    },
+    "done": true,
+    "done_reason": "stop",
+    "total_duration": 29488007708,
+    "load_duration": 100803500,
+    "prompt_eval_count": 612,
+    "prompt_eval_duration": 68502000,
+    "eval_count": 641,
+    "eval_duration": 29316299000
+  }
+}

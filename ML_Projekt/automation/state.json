@@ -1,0 +1,54 @@
+{
+  "start_time": "2026-06-29T14:05:37.845306+00:00",
+  "experiment_count": 1,
+  "best_f1_dev": 0.6938,
+  "best_f1_conf": 0.6938,
+  "best_run_id": null,
+  "consecutive_errors": 0,
+  "no_progress_count": 1,
+  "completed_since_review": 0,
+  "needs_review": true,
+  "stop_reason": "PAUSED_FOR_AUTONOMOUS_MODE",
+  "auto_claude_review": false,
+  "history": [
+    {
+      "run_id": "20260629_155305_h_extratrees_base",
+      "hypothesis_short": "ExtraTrees als 7. OOF-Spalte",
+      "experiment_type": "new_base_oof",
+      "delta_dev": null,
+      "delta_se_dev": null,
+      "delta_conf": null,
+      "delta_se_conf": null,
+      "oof_corr_max": null,
+      "runtime_s": 0,
+      "decision": "INFRASTRUCTURE_ERROR",
+      "reason": "Qwen think-tokens consumed all 2048 output tokens; content was empty (done_reason=length). Fixed: think=false, format=json, num_predict=4096."
+    },
+    {
+      "run_id": "20260629_160329_h_extratrees_base",
+      "hypothesis_short": "ExtraTrees als 7. OOF-Spalte",
+      "experiment_type": "new_base_oof",
+      "delta_dev": null,
+      "delta_se_dev": null,
+      "delta_conf": null,
+      "delta_se_conf": null,
+      "oof_corr_max": null,
+      "runtime_s": 0.8,
+      "decision": "INFRASTRUCTURE_ERROR",
+      "reason": "ROOT path was .parent.parent instead of .parent.parent.parent \u2014 data not found"
+    },
+    {
+      "run_id": "20260629_160537_h_hgb_base",
+      "hypothesis_short": "HistGradientBoosting als 7. OOF-Spalte",
+      "experiment_type": "new_base_oof",
+      "delta_dev": -0.00448,
+      "delta_se_dev": 0.00195,
+      "delta_conf": null,
+      "delta_se_conf": null,
+      "oof_corr_max": 0.9007,
+      "runtime_s": 6.1,
+      "decision": "REJECT",
+      "reason": "Dev: delta=-0.0045 <= 0 and corr_max >= 0.80"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "timestamp": "2026-06-29T13:53:05.959623",
+  "model": "qwen3:32b",
+  "system_prompt_len": 1497,
+  "user_message_len": 194,
+  "payload": {
+    "model": "qwen3:32b",
+    "stream": false,
+    "options": {
+      "num_predict": 2048,
+      "temperature": 0.2
+    },
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are an ML experiment code generator for a binary classification project.\n\nTASK: Generate a Python experiment script that produces new OOF (out-of-fold) predictions.\n\nRULES (MANDATORY):\n1. Output file: new_oof.npy in current working directory (the run folder). Shape: (8000,) float64.\n2. Load training data from: {data_path} (columns f00..f15, label). Use robust path resolution.\n3. You MAY load (read-only): artifacts/base_oof.npz, artifacts/tabpfn_oof.npz, artifacts/tuned_params.json\n4. NEVER write to: artifacts/base_oof.npz, artifacts/tabpfn_oof.npz, artifacts/tuned_params.json, predictions.csv\n5. NEVER use subprocess, os.system, exec, eval.\n6. ONLY import from: numpy, pandas, sklearn, xgboost, lightgbm, catboost, tabpfn, scipy, math, os, sys, pathlib, json, warnings, time\n7. CV: StratifiedKFold(n_splits=5, shuffle=True, random_state=42) — same splits as baseline\n8. Set random_state=42 everywhere.\n9. The script must be self-contained and run with: python experiment.py (cwd = run folder)\n10. ROOT = Path(__file__).resolve().parent.parent (two levels up = project root)\n\nPATHS:\n- Training data: ROOT / \"data\" / \"data\" / \"toxic_data_01111.csv\" (fallback: ROOT / \"data\" / \"toxic_data_01111.csv\")\n- Artifacts: ROOT / \"artifacts\" / ...\n- Output: Path(\"new_oof.npy\") (relative, in cwd = run folder)\n\nOUTPUT FORMAT: Respond with ONLY a JSON object:\n{\n  \"hypothesis\": \"one sentence\",\n  \"expected_mechanism\": \"one sentence\",\n  \"risks\": \"one sentence\",\n  \"script\": \"...full python code...\"\n}"
+      },
+      {
+        "role": "user",
+        "content": "Generate experiment script for hypothesis:\nID: h_extratrees_base\nType: new_base_oof\nHypothesis: ExtraTrees als 7. OOF-Spalte\n\nReturn JSON with keys: hypothesis, expected_mechanism, risks, script"
+      }
+    ]
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "attempt": 1,
+  "timestamp": "2026-06-29T13:59:12.007009",
+  "done_reason": "stop",
+  "eval_count": 596,
+  "response": {
+    "model": "qwen3:32b",
+    "created_at": "2026-06-29T13:59:12.006308Z",
+    "message": {
+      "role": "assistant",
+      "content": "{\n  \"hypothesis\": \"ID: h_extratrees_base\\nType: new_base_oof\\nHypothesis: ExtraTrees als 7. OOF-Spalte\",\n  \"expected_mechanism\": \"Der Einsatz eines ExtraTreesClassifiers wird erwartet, dass er aufgrund seiner zufälligen Spaltensuche und schnellen Trainingseigenschaften eine robuste und komplementäre OOF-Spalte liefern kann, die sich von anderen Modellen unterscheidet und potenziell die Ensembleleistung verbessert.\",\n  \"risks\": \"1. Der ExtraTreesClassifier kann aufgrund seiner zufälligen Natur weniger stabile Ergebnisse liefern.\\n2. Ohne sorgfältige Parametertuning kann er unter- oder überangepasst sein.\\n3. Er kann in Bezug auf die Modellleistung hinter anderen Modellen wie XGBoost oder TabPFN zurückstehen.\",\n  \"script\": \"import numpy\\nimport pandas\\nimport os\\nimport pathlib\\nfrom sklearn.ensemble import ExtraTreesClassifier\\nfrom sklearn.model_selection import StratifiedKFold\\nfrom sklearn.exceptions import ConvergenceWarning\\n\\nROOT = pathlib.Path(__file__).resolve().parent.parent\\n\\n# Find training data path\\nfor _p in [ROOT / \\\"data\\\" / \\\"data\\\" / \\\"toxic_data_01111.csv\\\", ROOT / \\\"data\\\" / \\\"toxic_data_01111.csv\\\"]:\\n    if _p.exists():\\n        data_path = _p\\n        break\\nelse:\\n    raise FileNotFoundError(\\\"Training data not found\\\")\\n\\n# Load training data\\ndata = pandas.read_csv(data_path)\\nX = data[[f'f{i:02d}' for i in range(16)]].values\\ny = data['label'].values\\n\\n# Suppress convergence warnings\\nwarnings.filterwarnings(\\\"ignore\\\", category=ConvergenceWarning)\\n\\n# Initialize OOF array\\noof = numpy.zeros(len(y), dtype=numpy.float64)\\n\\n# Define CV\\nskf = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)\\n\\n# Train and predict\\nfor fold, (train_idx, val_idx) in enumerate(skf.split(X, y)):\\n    X_train, y_train = X[train_idx], y[train_idx]\\n    X_val, y_val = X[val_idx], y[val]\\n\\n    model = ExtraTreesClassifier(n_estimators=100, random_state=42)\\n    model.fit(X_train, y_train)\\n    oof[val_idx] = model.predict_proba(X_val)[:, 1]\\n\\n# Save OOF predictions\\nnumpy.save(pathlib.Path(\\\"new_oof.npy\\\"), oof.astype(numpy.float64))\"\n}"
+    },
+    "done": true,
+    "done_reason": "stop",
+    "total_duration": 30014212459,
+    "load_duration": 109304834,
+    "prompt_eval_count": 612,
+    "prompt_eval_duration": 2757559000,
+    "eval_count": 596,
+    "eval_duration": 27113817000
+  }
+}

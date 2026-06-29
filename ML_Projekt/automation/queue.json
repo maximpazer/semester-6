@@ -1,0 +1,42 @@
+[
+  {
+    "id": "h_meta_c_rank",
+    "priority": 3,
+    "type": "stack_variant",
+    "hypothesis_short": "LogReg Meta C in {0.1, 10} plus Rank-Eingaben",
+    "timeout_s": 60,
+    "expected_runtime": "~10 s"
+  },
+  {
+    "id": "h_catboost_nan",
+    "priority": 4,
+    "type": "feature_variant",
+    "hypothesis_short": "CatBoost nativ-NaN, Rohspalten plus Indikatoren",
+    "timeout_s": 300,
+    "expected_runtime": "~3 min"
+  },
+  {
+    "id": "h_lgbm_nan",
+    "priority": 5,
+    "type": "feature_variant",
+    "hypothesis_short": "LightGBM nativ-NaN, Rohspalten plus Indikatoren",
+    "timeout_s": 180,
+    "expected_runtime": "~2 min"
+  },
+  {
+    "id": "h_seed_bag_top3",
+    "priority": 6,
+    "type": "seed_bagging",
+    "hypothesis_short": "Seed-Bagging XGB+LGBM+Cat (Seeds 42,7,13), OOF gemittelt",
+    "timeout_s": 600,
+    "expected_runtime": "~8 min"
+  },
+  {
+    "id": "h_tabpfn_raw",
+    "priority": 7,
+    "type": "new_base_oof",
+    "hypothesis_short": "TabPFN roh/NaN-nativ als 7. OOF-Spalte",
+    "timeout_s": 2400,
+    "expected_runtime": "~30-40 min"
+  }
+]

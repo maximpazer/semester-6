@@ -1,0 +1,16 @@
+{
+  "delta_mean": -0.0009185730951561721,
+  "delta_se": 0.00563217426605202,
+  "baseline_mean": 0.68962683608659,
+  "candidate_mean": 0.6887082629914337,
+  "passes_to_confirmatory": false,
+  "fold_deltas": [
+    -0.0032371189641219322,
+    -0.009573906153710676,
+    -0.0037968675842430244,
+    -0.00899100899100902,
+    0.021006036217303792
+  ],
+  "decision": "REJECT",
+  "reason": "Dev delta non-positive or \u2264 SE"
+}
