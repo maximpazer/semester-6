@@ -1,0 +1,36 @@
+{
+  "xgb": {
+    "n_estimators": 700,
+    "max_depth": 5,
+    "learning_rate": 0.09104431333255672,
+    "subsample": 0.635577246610902,
+    "colsample_bytree": 0.7943519236694145,
+    "min_child_weight": 4,
+    "gamma": 0.2759363643718443,
+    "reg_lambda": 2.5414811393859753,
+    "scale_pos_weight": 5.9120873890781
+  },
+  "lgbm": {
+    "n_estimators": 700,
+    "max_depth": 5,
+    "learning_rate": 0.08516975393982704,
+    "num_leaves": 44,
+    "subsample": 0.9652300228889714,
+    "colsample_bytree": 0.8447784721716562,
+    "min_child_samples": 15,
+    "reg_lambda": 3.9440174892203115,
+    "scale_pos_weight": 6.653347501616505
+  },
+  "cat": {
+    "iterations": 350,
+    "depth": 7,
+    "learning_rate": 0.07259248719561363,
+    "l2_leaf_reg": 6.387926357773329,
+    "scale_pos_weight": 6.092130483097056
+  },
+  "oof_f1": {
+    "xgb": 0.668548842461886,
+    "lgbm": 0.672093023255814,
+    "cat": 0.6837180286961946
+  }
+}

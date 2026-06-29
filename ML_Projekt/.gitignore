@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Generated plots (exploratory only)
+plots/
+
+# OS / editor
+.DS_Store
+.vscode/
+
+# No datasets in git — they are distributed as a separate ZIP (uploaded to the repo's
+# GitHub Releases) and kept LOCAL on each machine. This keeps every clone small.
+# Everything under data/ is ignored EXCEPT the README (data dictionary).
+# See data/README.md for how to download & extract the ZIP.
+/data/*
+!/data/README.md
+
+# CatBoost training logs (regenerable)
+catboost_info/
+
+# Release archives
+*.zip
+
+# NOTE: artifacts/*.npz (OOF caches, ~0.5 MB) ARE committed on purpose
+# so finalize_with_tabpfn.py reproduces predictions.csv fast.

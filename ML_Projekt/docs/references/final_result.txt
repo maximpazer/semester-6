@@ -1,0 +1,37 @@
+================================================================
+FINAL RESULT - toxic_exam_01111  (metric: F1 of positive class)
+================================================================
+
+HEADLINE
+  Baseline (engineered XGB, single global threshold) ..... F1 ~ 0.654
+  Best pipeline (src/train_ultra.py), honest CV .......... F1 = 0.6811 +/- 0.027
+  -> genuine improvement of about +0.027, validated by repeated CV
+
+LIVE RECOMPUTE (run just now)
+  Baseline default-XGB, 13 feats, repeated 5x3 CV ........ F1 = 0.6516 +/- 0.0262
+
+FULL PIPELINE METRICS  (from the src/train_ultra.py run that wrote predictions.csv)
+  Forward feature selection (margin 0.0015):
+    baseline 12 feats 0.6384  ->  + f11_abs 0.6419   (only addition that beat noise)
+    final 13 feats: m11, m15, both_miss, f12, f12_sq, f08, f10, f13, f14, f11_val, f15_slog, f09_slog, f11_abs
+  Optuna OOF best-F1:   XGB 0.6685   LGBM 0.6721   CatBoost 0.6837
+  Out-of-fold F1:       XGB 0.6685   LGBM 0.6721   Cat 0.6837   MLP 0.6435   RF 0.5702
+                        STACK 0.6866 (meta) > BLEND 0.6739      -> use STACK
+  Threshold (honest repeated 5x10 CV):
+    global  0.6811 +/- 0.0270   <- chosen
+    prior   0.6803 +/- 0.0264
+    stratum 0.6730 +/- 0.0280   (per-stratum overfits the small strata)
+  Pseudo-labeling:      no-pseudo 0.6735  ->  with-pseudo 0.6779   -> used
+
+COMMITTED predictions.csv  (verified live)
+  rows ................... 2000
+  predicted positive ..... 247  (12.35%)
+  predicted negative ..... 1753
+  global threshold ....... 0.295
+  pred pos | f11 missing . 39.0%   (vs present 7.8%)
+  pred pos | f15 missing . 38.4%   (vs present 7.7%)
+  -> matches the MNAR signal (missing f11/f15 => far more positive)
+
+NOTE: the 0.6811 threshold is honestly cross-validated, but Optuna picked
+hyperparameters on the OOF, so the true graded exam F1 is likely ~0.66-0.68.
+================================================================
